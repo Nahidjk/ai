@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT-like AI</title>
+</head>
+<body>
+    <div>
+        <h1>ChatGPT-like AI</h1>
+        <textarea id="userInput" rows="4" cols="50"></textarea>
+        <button onclick="askQuestion()">Ask</button>
+        <div id="response"></div>
+    </div>
+
+    <script>
+        function askQuestion() {
+            const userInput = document.getElementById('userInput').value;
+
+            fetch('/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `user_input=${userInput}`
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('response').innerHTML = data;
+            });
+        }
+    </script>
+</body>
+</html>
